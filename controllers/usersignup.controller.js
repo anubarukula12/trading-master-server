@@ -1,23 +1,19 @@
 const RegisterUser = require("../models/user.model");
 const userCreate = async (req, res) => {
   console.log("hai in controller");
-  const crypto = require("crypto");
-  const userid = crypto.randomBytes(16).toString("hex");
   const name = req.body.name;
-  const username = req.body.username;
+  const user_name = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
   console.log(password);
   const confirmpassword = req.body.confirmpassword;
   console.log(confirmpassword);
   const status = "Active";
-
-  console.log(userid);
   try {
     console.log("in try");
     const emailexist = await RegisterUser.findOne({ email });
     console.log("existing email" + emailexist);
-    const usernameexist = await RegisterUser.findOne({ username });
+    const usernameexist = await RegisterUser.findOne({ user_name });
     console.log("usernameexist" + usernameexist);
     if (emailexist !== null || usernameexist !== null) {
       return res.status(400).send("User Already Exist!");
@@ -26,9 +22,8 @@ const userCreate = async (req, res) => {
       return res.status(400).send("Password does't match!");
     }
     const newUser = new RegisterUser({
-      userid,
       name,
-      username,
+      user_name,
       email,
       password,
       status,

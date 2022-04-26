@@ -7,35 +7,35 @@ const jwt = require("jsonwebtoken");
 const userExist = async (req, res) => {
   // app.use(passport.initialize());
   // require('../config/passport')
-  const user=new RegisterUser({
-  username : req.body.username,
-   password : hashSync(req.body.password,8)})
-  RegisterUser.findOne({username:req.body.username }).then((user) => {
-    if (!user) {
-      return res.status(401).send({
-        success: false,
-        message: "Could not find the user.",
-      });
+  try{
+  const user_name = req.body.username;
+  console.log("username in server",user_name)
+   const password = hashSync(req.body.password,8);
+   console.log("password in server",password)
+  let userexist=await RegisterUser.findOne({user_name});
+ console.log("userexist is",userexist)
+    if (!userexist) {
+      return res.status(401).send('User Not Found');
     }
-  });
-  if (!compareSync(req.body.password, user.password)) {
-    return res.status(401).send({
-      success: false,
-      message: "Incorrect password",
-    });
+  if (!compareSync(req.body.password, userexist.password)) {
+    return res.status(401).send('Invalid credentials');
   }
-  const payload = {
-    username: user.username,
-    id: user._id,
-  };
-  const token = jwt.sign(payload, "Random string", { expiresIn: "1d" });
-  return res.status(200).send({
-    success: true,
-    message: "Logged in successfully!",
-    token: "Bearer" + token,
-  });
+  let payload={
+    user:{
+      id:userexist.id
+    }
+  }
+  jwt.sign(payload,'jwt-Secret',{expiresIn:3600000},
+  (err,token)=>{
+    if(err) throw err;
+return res.json({token})
+  })
+}catch(err){
+  console.log(err);
+  return res.status(500).send("Invalid token")
+}
   
-  
-};
+}  
+
 
 module.exports = userExist;

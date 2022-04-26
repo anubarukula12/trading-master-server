@@ -1,33 +1,33 @@
-const { db } = require("../models/country.model");
+const { db } = require("../models/exchange.model");
 
 const databasefileupload = async (req, res) => {
-  countrydata = req.body.excelvalues;
-  console.log("the databasevalues", countrydata);
-  console.log(Object.entries(countrydata));
-  console.log(countrydata.length);
-  const headers = countrydata[0];
+  excelsheetdata = req.body.excelvalues;
+  console.log("the databasevalues", excelsheetdata);
+  console.log(Object.entries(excelsheetdata));
+  console.log(excelsheetdata.length);
+  const headers = excelsheetdata[0];
  
     
-    const data = countrydata.slice(1, countrydata.length);
+    const data = excelsheetdata.slice(1, excelsheetdata.length);
  
-    const jsoncountrydata = [],
-    countrydataarr= data,
+    const jsonexcelsheetdata = [],
+    excelsheetdataarr= data,
     tablehead = headers
-    for (let i=0; i<countrydataarr.length; i++) {
-             let details= countrydataarr[i],
+    for (let i=0; i<excelsheetdataarr.length; i++) {
+             let details= excelsheetdataarr[i],
                     obj = {};
             for (let j=0; j<tablehead.length; j++)
                     obj[tablehead[j]] = details[j];
-            jsoncountrydata.push(obj);
+            jsonexcelsheetdata.push(obj);
     }
- console.log("countrydata",jsoncountrydata);
+ console.log("excelsheetdata",jsonexcelsheetdata);
 
  
   
 //    for (let i = 1; i < countrydata.length; i++) {
 //        console.log("the values are",(Object.assign({},countrydata[i])));
 
- db.collection('country').insertMany(jsoncountrydata);
+db.collection().insertMany(jsonexcelsheetdata);
   
 //    }
 };

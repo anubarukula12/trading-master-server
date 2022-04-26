@@ -2,8 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const registerUser = new mongoose.Schema(
   {
-    userid: {
-      type: String,
+    user_id: {
+      type: mongoose.Schema.Types.ObjectId,
     },
     name: {
       type: String,
@@ -11,7 +11,7 @@ const registerUser = new mongoose.Schema(
       trim: true,
       minlength: 3,
     },
-    username: {
+    user_name: {
       type: String,
       required: true,
       unique: true,

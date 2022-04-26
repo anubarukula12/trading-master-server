@@ -2,8 +2,7 @@ const mongoose = require("mongoose");
 const stock = new mongoose.Schema(
   {
     stockid: {
-     type:mongoose.Schema.Types.ObjectId,
-      ref: "Exchange",
+      ref: "RegisterUser",
     },
     name: {
       type: String,
@@ -11,8 +10,11 @@ const stock = new mongoose.Schema(
     code: {
       type: String,
     },
-    status: {
-      type: String,
+    description:{
+      type:String,
+    },
+    sector:{
+      type:String,
     },
   },
   {

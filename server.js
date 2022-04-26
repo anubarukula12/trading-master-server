@@ -27,17 +27,14 @@ app.use(
 //routes
 const usersRouter = require("./routes/user");
 app.use("/users", usersRouter);
-
 const loginRouter = require("./routes/login");
 app.use("/users", loginRouter);
-
-// const protectedRouter = require("./routes/protected");
-// app.use("/users", protectedRouter);
 const userprofileRouter=require("./routes/userdetails");
 app.use("/",userprofileRouter);
-
 const fileuploadRouter=require("./routes/fileupload")
 app.use("/",fileuploadRouter);
+const userProfileRouter = require("./routes/userprofile");
+app.use("/",userProfileRouter);
 //MongoDB connection
 mongoose.connect(uri, { useNewUrlParser: true });
 const connection = mongoose.connection;
