@@ -1,4 +1,4 @@
-const { db } = require("../models/exchange.model");
+const { db } = require("../models/stock.model");
 
 const databasefileupload = async (req, res) => {
   excelsheetdata = req.body.excelvalues;

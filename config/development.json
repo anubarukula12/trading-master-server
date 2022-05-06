@@ -1,0 +1,9 @@
+{
+    "port":5000,
+    "database":{
+        "uri":"mongodb+srv://anu:anu@cluster0.lszyg.mongodb.net/marketTables?retryWrites=true&w=majority"
+    },
+    "hashing": {
+		"salt": 10
+	}
+}

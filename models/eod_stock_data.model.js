@@ -1,14 +1,24 @@
 const mongoose = require("mongoose");
 const eodstockdata = new mongoose.Schema(
   {
-   eod_stock_id:{
-       type:mongoose.Schema.Types.ObjectId, ref:'Exchange'
-   },
+  
     eod_date: {
       type: Date,
     },
-   code: {
-      type: String,
+    stock_id:{
+      type:String,
+  },
+   open: {
+      type: Number,
+    },
+    high:{
+      type:Number,
+    },
+    low:{
+      type:Number,
+    },
+    last:{
+      type:Number,
     },
     technical_rating: {
       type: String,

@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const userportfolio = new mongoose.Schema(
   {
-    user_portfolio_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "RegisterUser",
+    user_id: {
+      type:String,
+    },
+    code:{
+      type:String,
     },
     purchase_quantity: {
       type: Number,
@@ -11,17 +13,14 @@ const userportfolio = new mongoose.Schema(
     purchase_price: {
       type: Number,
     },
+    purchase_date: {
+      type: Date,
+    },
     sale_quantity: {
       type: Number,
     },
-    sale_price: {
+   sale_price: {
       type: Number,
-    },
-    quantity: {
-      type: Number,
-    },
-    purchase_date: {
-      type: Date,
     },
     sale_date: {
       type: Date,

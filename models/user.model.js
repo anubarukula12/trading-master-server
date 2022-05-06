@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const config=require("config");
 const registerUser = new mongoose.Schema(
   {
     user_id: {
@@ -33,6 +34,10 @@ const registerUser = new mongoose.Schema(
     status: {
       type: String,
     },
+    role:{
+      type:String,
+      default:"subscriber"
+    }
   },
   {
     timestamps: true,
@@ -42,7 +47,7 @@ const registerUser = new mongoose.Schema(
 registerUser.pre("save", async function (next) {
   const user = this;
   if (user.isModified("password")) {
-    user.password = await bcrypt.hash(user.password, 8);
+    user.password = await bcrypt.hash(user.password,config.get("hashing.salt") );
   }
   next();
 });

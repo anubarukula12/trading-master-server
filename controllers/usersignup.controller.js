@@ -21,16 +21,30 @@ const userCreate = async (req, res) => {
     if (password != confirmpassword) {
       return res.status(400).send("Password does't match!");
     }
+    if(user_name!="admin"){
     const newUser = new RegisterUser({
       name,
       user_name,
       email,
       password,
       status,
+      role:"user",
     });
     await newUser.save();
     return res.status(200).send(" user registered successfully!");
-  } catch (err) {
+  }else{
+    const newUser = new RegisterUser({
+      name,
+      user_name,
+      email,
+      password,
+      status,
+      role:"admin",
+    });
+    await newUser.save();
+    return res.status(200).send(" user registered successfully!");
+  }}
+  catch (err) {
     console.log(err);
     return res.status(500).send("Internal Server Error!");
   }

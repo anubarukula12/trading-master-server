@@ -1,18 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-
-const session = require("express-session");
-const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo");
+const config = require("config");
 require("dotenv").config();
-
-const uri = process.env.ATLAS_URI;
-
+const mongoose = require("mongoose");
+const db = require("./db/conn");
 const app = express();
-const port = process.env.port || 5000;
 
 //Middle ware
-
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -24,24 +18,32 @@ app.use(
   })
 );
 
-//routes
+//user routes
 const usersRouter = require("./routes/user");
 app.use("/users", usersRouter);
 const loginRouter = require("./routes/login");
 app.use("/users", loginRouter);
-const userprofileRouter=require("./routes/userdetails");
-app.use("/",userprofileRouter);
-const fileuploadRouter=require("./routes/fileupload")
-app.use("/",fileuploadRouter);
 const userProfileRouter = require("./routes/userprofile");
-app.use("/",userProfileRouter);
-//MongoDB connection
-mongoose.connect(uri, { useNewUrlParser: true });
-const connection = mongoose.connection;
-connection.once("open", () => {
-  console.log("MongoDB database connection established successfully");
-});
+app.use("/", userProfileRouter);
+const portfolioroutes = require("./routes/portfolioroutes");
+app.use("/portfolio", portfolioroutes);
 
-app.listen(port, () => {
-  console.log(`Server is running on port:${port} `);
+//Admin routes
+const countryroutes = require("./routes/countryroutes");
+app.use("/record", countryroutes);
+const stockroutes = require("./routes/stockroutes");
+app.use("/stock", stockroutes);
+const eodroutes = require("./routes/eodroutes");
+app.use("/eod_stock_data", eodroutes);
+const userroutes = require("./routes/userroutes");
+app.use("/user", userroutes);
+
+//server and mongo connection
+const PORT = process.env.PORT || 5000;
+mongoose.connection.once("open", () => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+
+  console.log("MongoDB is connected");
 });
