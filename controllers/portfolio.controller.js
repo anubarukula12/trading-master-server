@@ -20,7 +20,7 @@ const addportfolio = async (req, res) => {
       sale_price,
       sale_date,
     });
-   // console.log("the portfolios is", newPortfolio);
+    // console.log("the portfolios is", newPortfolio);
     await newPortfolio.save();
     return res.status(200).send("Portfolio added successfully!");
   } catch (err) {
@@ -38,27 +38,26 @@ const getportfolio = async (req, res) => {
   }
 };
 const getstockinportfolio = async (req, res) => {
-    try {
-      const stock = await Stock.find({});
-      return res.json(stock);
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send("Internal Server Error!");
-    }
-  };
-  const getsingleportfolio = async (req, res) => {
-    try {
-      const portfolio = await Userportfolio.find({});
-      return res.json(portfolio);
-    } catch (err) {
-      console.log(err);
-      return res.status(500).send("Internal Server Error!");
-    }
-  };
+  try {
+    const stock = await Stock.find({});
+    return res.json(stock);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Internal Server Error!");
+  }
+};
+const getsingleportfolio = async (req, res) => {
+  try {
+    const portfolio = await Userportfolio.findById(req.params.id);
+    return res.json(portfolio);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Internal Server Error!");
+  }
+};
 const getuserportfolio = async (req, res) => {
   try {
-    const portfolio = await Userportfolio.find({user_id:req.params.id});
-    console.log(portfolio);
+    const portfolio = await Userportfolio.find({ user_id: req.params.id });
     return res.json(portfolio);
   } catch (err) {
     console.log(err);
@@ -77,12 +76,12 @@ const deleteportfolio = async (req, res) => {
 const updateportfolio = async (req, res) => {
   try {
     const portfolio = await Userportfolio.findById(req.params.id);
-    portfolio.user_id = req.body.user_id;
-    portfolio.code = req.body.code;
-    portfolio.purchase_quantity = req.body.purchase_quantity;
-    portfolio.purchase_price = req.body.purchase_price;
-    portfolio.purchase_date = req.body.purchase_date;
-    portfolio.sale_quantity = req.sale_quantity;
+    // portfolio.user_id = req.body.user_id;
+    // portfolio.code = req.body.code;
+    // portfolio.purchase_quantity = req.body.purchase_quantity;
+    // portfolio.purchase_price = req.body.purchase_price;
+    // portfolio.purchase_date = req.body.purchase_date;
+    portfolio.sale_quantity = req.body.sale_quantity;
     portfolio.sale_price = req.body.sale_price;
     portfolio.sale_date = req.body.sale_date;
     portfolio.save();
@@ -98,5 +97,5 @@ module.exports = {
   deleteportfolio,
   updateportfolio,
   getuserportfolio,
-  getsingleportfolio
+  getsingleportfolio,
 };

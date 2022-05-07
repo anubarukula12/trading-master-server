@@ -29,7 +29,6 @@ const getcountry = async (req, res) => {
 const getsinglecountry = async (req, res) => {
   try {
     const country = await Countryrecord.findById(req.params.id);
-    console.log(country);
     return res.json(country);
   } catch (err) {
     console.log(err);

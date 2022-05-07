@@ -3,8 +3,7 @@ const registerUser = require("../models/user.model");
 const getuser = async (req, res) => {
   try {
     const user = await registerUser.find({});
-    //console.log("user in server",user)
-
+       
     return res.json(user);
   } catch (err) {
     console.log(err);

@@ -31,7 +31,6 @@ const addstock = async (req, res) => {
 const getstock = async (req, res) => {
   try {
     const stock = await EodStock.find({});
-    console.log("the stock is", stock);
     return res.json(stock);
   } catch (err) {
     console.log(err);

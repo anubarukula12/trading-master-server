@@ -13,6 +13,7 @@ const addstock = async (req, res) => {
       sector,
       exchange_id,
     });
+    console.log("the stock is",newStock)
     await newStock.save();
     return res.status(200).send(" Stock added successfully!");
   } catch (err) {
@@ -32,6 +33,15 @@ const getstock = async (req, res) => {
 const getsinglestock = async (req, res) => {
     try {
       const stock = await Stock.findById(req.params.id);
+      return res.json(stock);
+    } catch (err) {
+      console.log(err);
+      return res.status(500).send("Internal Server Error!");
+    }
+  };
+  const getstockbycode = async (req, res) => {
+    try {
+      const stock = await Stock.find({code:req.params.code});
       return res.json(stock);
     } catch (err) {
       console.log(err);
@@ -67,5 +77,6 @@ module.exports = {
   getstock,
   deletestock,
   updatestock,
-  getsinglestock
+  getsinglestock,
+  getstockbycode
 };
