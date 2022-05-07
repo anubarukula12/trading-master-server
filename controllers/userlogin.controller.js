@@ -7,10 +7,10 @@ const config=require('config');
 const userExist = async (req, res) => {
   try {
     const user_name = req.body.username;
-    console.log(config.get('hashing.salt'));
+   // console.log(config.get('hashing.salt'));
     const password = hashSync(req.body.password, config.get('hashing.salt'));
     let userexist = await RegisterUser.findOne({ user_name });
-    console.log("userexist is", userexist);
+   // console.log("userexist is", userexist);
     if (!userexist) {
       return res.status(401).send("User Not Found");
     }

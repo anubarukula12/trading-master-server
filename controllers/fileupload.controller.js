@@ -20,7 +20,7 @@ const databasefileupload = async (req, res) => {
                     obj[tablehead[j]] = details[j];
             jsonexcelsheetdata.push(obj);
     }
- console.log("excelsheetdata",jsonexcelsheetdata);
+//  console.log("excelsheetdata",jsonexcelsheetdata);
 
  
   

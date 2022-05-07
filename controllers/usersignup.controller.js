@@ -10,11 +10,10 @@ const userCreate = async (req, res) => {
   console.log(confirmpassword);
   const status = "Active";
   try {
-    console.log("in try");
     const emailexist = await RegisterUser.findOne({ email });
-    console.log("existing email" + emailexist);
+   // console.log("existing email" + emailexist);
     const usernameexist = await RegisterUser.findOne({ user_name });
-    console.log("usernameexist" + usernameexist);
+   // console.log("usernameexist" + usernameexist);
     if (emailexist !== null || usernameexist !== null) {
       return res.status(400).send("User Already Exist!");
     }

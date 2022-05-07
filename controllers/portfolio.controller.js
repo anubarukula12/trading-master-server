@@ -20,7 +20,7 @@ const addportfolio = async (req, res) => {
       sale_price,
       sale_date,
     });
-    console.log("the portfolios is", newPortfolio);
+   // console.log("the portfolios is", newPortfolio);
     await newPortfolio.save();
     return res.status(200).send("Portfolio added successfully!");
   } catch (err) {
@@ -48,7 +48,7 @@ const getstockinportfolio = async (req, res) => {
   };
   const getsingleportfolio = async (req, res) => {
     try {
-      const portfolio = await portfolio.find({});
+      const portfolio = await Userportfolio.find({});
       return res.json(portfolio);
     } catch (err) {
       console.log(err);
@@ -56,7 +56,6 @@ const getstockinportfolio = async (req, res) => {
     }
   };
 const getuserportfolio = async (req, res) => {
-    console.log("the value is",req.params.id)
   try {
     const portfolio = await Userportfolio.find({user_id:req.params.id});
     console.log(portfolio);
