@@ -1,13 +1,10 @@
 const RegisterUser = require("../models/user.model");
 const userCreate = async (req, res) => {
-  console.log("hai in controller");
   const name = req.body.name;
   const user_name = req.body.username;
   const email = req.body.email;
   const password = req.body.password;
-  console.log(password);
   const confirmpassword = req.body.confirmpassword;
-  console.log(confirmpassword);
   const status = "Active";
   try {
     const emailexist = await RegisterUser.findOne({ email });

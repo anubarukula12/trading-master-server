@@ -27,6 +27,8 @@ const userProfileRouter = require("./routes/userprofile");
 app.use("/", userProfileRouter);
 const portfolioroutes = require("./routes/portfolioroutes");
 app.use("/portfolio", portfolioroutes);
+const changepwdroute=require("./routes/changepwdroutes");
+app.use("/user",changepwdroute);
 
 //Admin routes
 const countryroutes = require("./routes/countryroutes");
@@ -36,6 +38,7 @@ app.use("/stock", stockroutes);
 const eodroutes = require("./routes/eodroutes");
 app.use("/eod_stock_data", eodroutes);
 const userroutes = require("./routes/userroutes");
+console.log("userroutes");
 app.use("/user", userroutes);
 
 //server and mongo connection

@@ -8,28 +8,14 @@ const registerUser = new mongoose.Schema(
     },
     name: {
       type: String,
-      required: true,
-      trim: true,
-      minlength: 3,
     },
     user_name: {
       type: String,
-      required: true,
-      unique: true,
-      trim: true,
-      minlength: 3,
     },
     email: {
-      type: String,
-      trim: true,
-      lowercase: true,
-      unique: true,
-      required: true,
     },
     password: {
       type: String,
-      required: true,
-      minlength: 8,
     },
     status: {
       type: String,
