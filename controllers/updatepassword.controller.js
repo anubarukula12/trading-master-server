@@ -19,7 +19,9 @@ const updatePassword = async (req, res) => {
 //       new: true,
 //     });
 //     return res.status(200).send(" Password changed successfully!");
-RegisterUser.findByIdAndUpdate(req.user.id,{"password": newpassword})
+//RegisterUser.findByIdAndUpdate(req.user.id,{"password": newpassword})
+user.password=newpassword;
+user.save();
         res.send("password changed successfully")
    
 

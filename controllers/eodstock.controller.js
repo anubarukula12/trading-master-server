@@ -1,4 +1,5 @@
 const EodStock = require("../models/eod_stock_data.model");
+const userPortfolio=require("../models/user_portfolio.model");
 const addstock = async (req, res) => {
   const eod_date = req.body.eod_date;
   const stock_id = req.body.stock_id;
@@ -32,6 +33,29 @@ const getstock = async (req, res) => {
   try {
     const stock = await EodStock.find({});
     return res.json(stock);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Internal Server Error!");
+  }
+};
+const getuserstock = async (req, res) => {
+
+  try {
+    const ObjectId = require("mongodb").ObjectId;
+    let query = ObjectId(req.user.id)
+    const stocks = await userPortfolio.find({user_id:query});
+    
+    const abc = []
+    for(let i=0;i<stocks.length;i++){
+      const stock = stocks[i]
+      if (stock.sale_price == null){
+      const eod_prices=await EodStock.find({stock_id:stocks[i].code}).sort({eod_date:-1})
+      const eod_price = eod_prices[0].last
+      stock.sale_price = eod_price
+      }
+      abc.push(stock)
+    }
+    return res.json(abc);
   } catch (err) {
     console.log(err);
     return res.status(500).send("Internal Server Error!");
@@ -74,10 +98,25 @@ const updatestock = async (req, res) => {
     return res.status(500).send("Internal Server Error!");
   }
 };
+const getallstocks = async (req, res) => {
+  console.log("hai")
+  try {
+    const ObjectId = require("mongodb").ObjectId;
+    let query = req.params.id
+    const stock = await EodStock.findById({stock_id:query});
+    return res.json(stock);
+    console.log(stock);
+  } catch (err) {
+    console.log(err);
+    return res.status(500).send("Internal Server Error!");
+  }
+};
 module.exports = {
   addstock,
   getstock,
   deletestock,
   updatestock,
   getsinglestock,
+  getallstocks,
+  getuserstock
 };
